@@ -1,0 +1,35 @@
+{% set device = hostvars[inventory_hostname] %}
+
+{% for key, value in interfaces.items() %}
+  {% if "Link catre cpe" in value.description %}
+      {% set wancpeip  = value.ipv4.split(".")[0] + "." + value.ipv4.split(".")[2] + "." + value.ipv4.split(".")[3] + "." + (((value.ipv4.split(".")[3] | int ) + 1 ) | string ) %}
+      {% set wanpeip = value.ipv4 %}
+      {% set cpe_name = value.description.split("catre")[1].strip() | string %}
+
+      {% for cpe_key,cpe_values in pe_cpe_links.items() %}
+        {% if cpe_name in cpe_key %}
+          {% if "single" in cpe_key %}
+            {% for LAN in cpe_values%}
+set routing-options static route {{LAN}} next-hop {{ wancpeip }}
+            {% endfor %}
+          {% else %}
+set routing-options autonomous-system 1234
+set policy-options policy-statement local-redist term local from protocol static
+set policy-options policy-statement local-redist term local from protocol direct
+set policy-options policy-statement local-redist term local from protocol bgp
+set policy-options policy-statement local-redist term local then accept
+set policy-options policy-statement local-redist then reject
+
+set protocols bgp group {{ cpe_name }} log-updown
+set protocols bgp group {{ cpe_name }} local-as 1234
+set protocols bgp group {{ cpe_name }} peer-as 64512
+set protocols bgp group {{ cpe_name }} export local-redist
+set protocols bgp group {{ cpe_name }} neighbor {{ wancpeip }} description {{cpe_key}}
+set protocols bgp group {{ cpe_name }} neighbor {{ wancpeip }} peer-as 64512
+set protocols bgp group cpe-um01820.r1 neighbor {{ wancpeip }} local-address {{ wanpeip }}
+          {% endif %}
+
+        {% endif%}
+      {% endfor %}
+  {% endif%}
+{% endfor %}

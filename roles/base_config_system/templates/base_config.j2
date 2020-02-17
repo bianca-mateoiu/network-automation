@@ -1,0 +1,43 @@
+{% set device = hostvars[inventory_hostname] %}
+
+
+delete
+
+set system login user jcladmin class super-user authentication encrypted-password "$6$COH4QgW/$uFzZAk1fYdnuwVl5WUjhb/4JdtSWIq7y/eCqB3qEFLFK/QBeG1C686NzW0XL0sz8qX4bzyYW0uMIBNXK47Kw7."
+set system login user jcluser class super-user authentication encrypted-password "$6$G44rGtvQ$I3jMwJk.0/CbTlhEoZzoDGv9dcFuZYdKvNFHiZwZ6s5Lktf/vMHipZxDwEXxgtid.dmN5K27fMBYwKnSijiQ/."
+set system root-authentication encrypted-password "$6$w0uV/Veg$MxUKS00aYKDRZKuI13guEQ3yhv0XjZ5vDD/xBSVatXwzxvgMZCjERUu5kEpMaRzFDhrcyf8NLW8lQiM.KpUCE1"
+set system scripts language python
+set system services ssh root-login allow
+set system services netconf ssh
+set system services rest http port 3000
+set system services rest enable-explorer
+set system syslog user * any emergency
+set system syslog file messages any notice
+set system syslog file messages authorization info
+set system syslog file interactive-commands interactive-commands any
+set system processes dhcp-service traceoptions file dhcp_logfile
+set system processes dhcp-service traceoptions file size 10m
+set system processes dhcp-service traceoptions level all
+set system processes dhcp-service traceoptions flag all
+set chassis fpc 0 pic 0 number-of-ports 8
+set chassis fpc 0 lite-mode
+set interfaces lo0 unit 0 family inet address 127.0.0.1/32
+set routing-options static route 0.0.0.0/0 next-hop 100.123.0.1
+
+
+
+set system host-name {{ inventory_hostname }}
+set system login user carmen class read-only authentication encrypted-password "{{ carmen_hash }}"
+set system login message "*************************************************************** \n                Atentie!!! Acest echipament este monitorizat ! \n             V-ati conectat la un sistem NATO SECRET! \n          Nu aveti voie sa intreprindeti activitati care pot genera intreruperi ale comunicatiilor! \n                     Activitatea dumneavoastra este monitorizata! \n***************************************************************"
+
+
+
+set snmp community SIC_NS_SSSB-RO authorization read-only
+set snmp community SIC_NS_SSSB-RO client-list-name SIC_NS_SSSB-Standard
+set snmp community SIC_NS_SSSB-RW authorization read-write
+set snmp community SIC_NS_SSSB-RW client-list-name SIC_NS_SSSB-Standard
+
+
+set policy-options prefix-list SIC_NS_SSSB-Standard 192.168.0.0/16
+set policy-options prefix-list SIC_NS_SSSB-Standard 172.16.0.0/12
+set policy-options prefix-list SIC_NS_SSSB-Standard 10.0.0.0/8

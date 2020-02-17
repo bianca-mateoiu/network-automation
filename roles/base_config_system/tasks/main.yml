@@ -1,0 +1,5 @@
+---
+- name: base_config_system
+  template:
+    src: base_config.j2
+    dest: "{{ config_assemble_build }}/base_config.conf"

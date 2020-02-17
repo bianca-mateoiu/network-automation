@@ -1,0 +1,10 @@
+---
+- name: pe
+  template:
+    src: pe.j2
+    dest: "{{ config_assemble_build }}/pe.conf"
+
+- name: pe-cpe
+  template:
+    src: pe-cpe.j2
+    dest: "{{ config_assemble_build }}/pe-cpe.conf"

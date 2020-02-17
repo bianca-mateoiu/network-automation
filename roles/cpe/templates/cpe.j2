@@ -1,0 +1,101 @@
+{% set device = hostvars[inventory_hostname] %}
+
+
+{% set global_wanpeip = namespace(value="") %}
+{% set global_wancpeip = namespace(value="") %}
+{% set global_lanibgppeer = namespace(value="") %}
+{% set global_lanibgplocaladdress = namespace(value="") %}
+
+{% for key, value in interfaces.items() %}
+  {% if "Link catre pe" in value.description %}
+      {% set wanpeip  = value.ipv4.split(".")[0] + "." + value.ipv4.split(".")[2] + "." + value.ipv4.split(".")[3] + "." + (((value.ipv4.split(".")[3] | int ) - 1 ) | string ) %}
+      {% set wancpeip = value.ipv4 %}
+      {% set global_wanpeip.value=wanpeip %}
+      {% set global_wancpeip.value=wancpeip %}
+  {% endif%}
+  {% if "LAN" in value.description %}
+      {% set lanibgppeer  = value.ipv4.split(".")[0] + "." + value.ipv4.split(".")[2] + "." + value.ipv4.split(".")[3] + "." + (((value.ipv4.split(".")[3] | int ) + 1 ) | string ) %}
+      {% set lanibgplocaladdress = value.ipv4 %}
+      {% set global_lanibgppeer.value=lanibgppeer %}
+      {% set global_lanibgplocaladdress.value=lanibgplocaladdress %}
+  {% endif%}
+{% endfor %}
+
+{% for item in role %}
+
+  {% if "singleCPE" in item %}
+    set routing-options static route 0.0.0.0/0 next-hop {{ global_wanpeip.value }}
+  {% endif %}
+
+
+  {% if "primaryCPE" in item %}
+    set routing-options autonomous-system 64512
+    set protocols bgp log-updown
+    set protocols bgp group SIC_NS_SSSB type external
+    set protocols bgp group SIC_NS_SSSB peer-as 1234
+    set protocols bgp group SIC_NS_SSSB local-as 64512
+    set protocols bgp group SIC_NS_SSSB neighbor {{ global_wanpeip.value }} local-address {{ global_wancpeip.value }}
+    set protocols bgp group SIC_NS_SSSB neighbor {{ global_wanpeip.value }} export lan-to-bgp
+
+    set protocols bgp group internal type internal
+    set protocols bgp group internal export internal-to-bgp
+    set protocols bgp group internal peer-as 64512
+    set protocols bgp group internal local-as 64512
+    set protocols bgp group internal neighbor {{ global_lanibgppeer.value }} local-address {{ global_lanibgplocaladdress.value }}
+
+
+    set policy-options policy-statement lan-to-bgp term export from protocol direct
+    set policy-options policy-statement lan-to-bgp term export from protocol static
+    set policy-options policy-statement lan-to-bgp term export from protocol bgp
+    set policy-options policy-statement lan-to-bgp term export then accept
+    set policy-options policy-statement lan-to-bgp then reject
+
+    set policy-options policy-statement internal-to-bgp term local from protocol direct
+    set policy-options policy-statement internal-to-bgp term local from protocol static
+    set policy-options policy-statement internal-to-bgp term local then accept
+    set policy-options policy-statement internal-to-bgp term ebgp from protocol bgp
+    set policy-options policy-statement internal-to-bgp term ebgp then accept
+    set policy-options policy-statement internal-to-bgp then reject
+  {% endif %}
+
+
+
+  {% if "secondaryCPE" in item %}
+    set routing-options autonomous-system 64512
+    set protocols bgp log-updown
+    set protocols bgp group SIC_NS_SSSB type external
+    set protocols bgp group SIC_NS_SSSB peer-as 1234
+    set protocols bgp group SIC_NS_SSSB local-as 64512
+    set protocols bgp group SIC_NS_SSSB neighbor {{ global_wanpeip.value }} local-address {{ global_wancpeip.value }}
+    set protocols bgp group SIC_NS_SSSB neighbor {{ global_wanpeip.value }} import deprefer-in
+    set protocols bgp group SIC_NS_SSSB neighbor {{ global_wanpeip.value }} export deprefer-out
+    set protocols bgp group SIC_NS_SSSB neighbor {{ global_wanpeip.value }} export lan-to-bgp
+
+    set protocols bgp group internal type internal
+    set protocols bgp group internal export internal-to-bgp
+    set protocols bgp group internal peer-as 64512
+    set protocols bgp group internal local-as 64512
+    set protocols bgp group internal neighbor {{ global_lanibgppeer.value }} local-address {{ global_lanibgplocaladdress.value }}
+
+    set policy-options policy-statement lan-to-bgp term export from protocol direct
+    set policy-options policy-statement lan-to-bgp term export from protocol static
+    set policy-options policy-statement lan-to-bgp term export from protocol bgp
+    set policy-options policy-statement lan-to-bgp term export then accept
+    set policy-options policy-statement lan-to-bgp then reject
+
+    set policy-options policy-statement internal-to-bgp term local from protocol direct
+    set policy-options policy-statement internal-to-bgp term local from protocol static
+    set policy-options policy-statement internal-to-bgp term local then accept
+    set policy-options policy-statement internal-to-bgp term ebgp from protocol bgp
+    set policy-options policy-statement internal-to-bgp term ebgp then accept
+    set policy-options policy-statement internal-to-bgp then reject
+
+    set policy-options policy-statement deprefer-in term localpref then local-preference 50
+    set policy-options policy-statement deprefer-in term localpref then accept
+    set policy-options policy-statement deprefer-in then reject
+    set policy-options policy-statement deprefer-out term ia:csr-bkup then community set ia:csr-bkup
+
+    set policy-options community ia:csr-bkup members 1234:150
+  {% endif %}
+
+{% endfor %}

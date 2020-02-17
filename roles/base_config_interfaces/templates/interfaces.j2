@@ -1,0 +1,13 @@
+{% set device = hostvars[inventory_hostname] %}
+
+{% for key, value in interfaces.items() %}
+
+{% if value.unit is defined %}
+  set interfaces {{ key }} unit {{ value.unit }} family inet address {{value.ipv4}}/{{value.ipv4_mask}}
+  set interfaces {{ key }} unit {{ value.unit }} description "{{ value.description }}"
+{% else %}
+  set interfaces {{ key }} unit 0 family inet address {{value.ipv4}}/{{value.ipv4_mask}}
+  set interfaces {{ key }} unit 0 description "{{ value.description }}
+{% endif %}
+
+{% endfor %}

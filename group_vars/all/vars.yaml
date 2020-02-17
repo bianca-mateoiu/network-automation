@@ -1,0 +1,9 @@
+---
+root_hash: "{{ vault_root_hash }}"
+carmen_hash: "{{ vault_carmen_hash }}"
+config_assemble: "{{ user_data_path }}/config/{{ inventory_hostname }}"
+config_assemble_build: "{{ config_assemble }}/components"
+config_file: "{{ config_assemble }}/change-at-.conf"
+playbook_name: "{{ (lookup('file', '/proc/self/cmdline') | regex_replace('\u0000',' ')).split()|select('match','^[a-z-_/]*[.]y[a]*ml')|list|first|basename }}"
+user_data_path: "{{ '~/ansible' | expanduser }}"
+time: "{{ lookup('pipe', 'date \"+%d/%m/%Y-%H:%M\"') }}"

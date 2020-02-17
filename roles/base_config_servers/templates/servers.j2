@@ -1,0 +1,10 @@
+{% set device = hostvars[inventory_hostname] %}
+
+{% for item in dns_servers %}
+set system name-server {{ item }}
+{% endfor %}
+
+
+{% for item in ntp_servers %}
+set system ntp server {{ item }}
+{% endfor %}

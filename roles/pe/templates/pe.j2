@@ -1,0 +1,13 @@
+{% set device = hostvars[inventory_hostname] %}
+
+set protocols mpls interface all
+set protocols ldp igp-synchronization holddown-interval 10
+set protocols lldp interface all
+
+
+
+{% for key, value in interfaces.items() %}
+  {% if "Link catre pe" in value.description %}
+set protocols ospf area 0.0.0.0 interface {{ key }}
+  {% endif%}
+{% endfor %}
