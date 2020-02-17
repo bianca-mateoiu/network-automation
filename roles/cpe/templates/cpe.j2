@@ -7,7 +7,7 @@
 {% set global_lanibgplocaladdress = namespace(value="") %}
 
 {% for key, value in interfaces.items() %}
-  {% if "Link catre pe" in value.description %}
+  {% if "Link to pe" in value.description %}
       {% set wanpeip  = value.ipv4.split(".")[0] + "." + value.ipv4.split(".")[2] + "." + value.ipv4.split(".")[3] + "." + (((value.ipv4.split(".")[3] | int ) - 1 ) | string ) %}
       {% set wancpeip = value.ipv4 %}
       {% set global_wanpeip.value=wanpeip %}

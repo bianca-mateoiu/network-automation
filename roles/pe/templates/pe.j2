@@ -7,7 +7,7 @@ set protocols lldp interface all
 
 
 {% for key, value in interfaces.items() %}
-  {% if "Link catre pe" in value.description %}
+  {% if "Link to pe" in value.description %}
 set protocols ospf area 0.0.0.0 interface {{ key }}
   {% endif%}
 {% endfor %}

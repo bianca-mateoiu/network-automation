@@ -33,9 +33,9 @@ create_platform()
 
 create_devices()
 
-create_ip_addresses('legaturi_centrale')
-create_ip_addresses('legaturi_pe_cpe')
-create_ip_addresses('adresare_management')
+create_ip_addresses('core_links')
+create_ip_addresses('pe_cpe')
+create_ip_addresses('management')
 
 enable_management_ip_address()
 

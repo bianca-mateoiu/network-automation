@@ -1,10 +1,10 @@
 {% set device = hostvars[inventory_hostname] %}
 
 {% for key, value in interfaces.items() %}
-  {% if "Link catre cpe" in value.description %}
+  {% if "Link to cpe" in value.description %}
       {% set wancpeip  = value.ipv4.split(".")[0] + "." + value.ipv4.split(".")[2] + "." + value.ipv4.split(".")[3] + "." + (((value.ipv4.split(".")[3] | int ) + 1 ) | string ) %}
       {% set wanpeip = value.ipv4 %}
-      {% set cpe_name = value.description.split("catre")[1].strip() | string %}
+      {% set cpe_name = value.description.split("to")[1].strip() | string %}
 
       {% for cpe_key,cpe_values in pe_cpe_links.items() %}
         {% if cpe_name in cpe_key %}
