@@ -1,27 +1,27 @@
 ---
-# Datele folosite pentru configurarea Netbox
+# Data input for initial Netbox setup
 
-# ip-ul serverului de netbox
+# Netbox server IP address
 ip: 100.123.35.0
 
-# user tokenul folosit e netbox
+# user token
 token: '0123456789abcdef0123456789abcdef01234567'
 
-# reteaua netbox - sistem informatic si de comunicatii nato secret ship shore ship buffer
+# tenants
 tenants:
     - telecom
 
-# netbox sites. site-urile sunt assignate tenant-urilor
+# netbox sites
 sites:
     - London
     - Bristol
 
-# producatorii de echipamente
+# manufacturers
 manufacturers:
     - juniper
     - cisco
 
-# rolurile asignate echipamentelor
+# roles
 device-roles:
     - "PERR"
     - "PE"
@@ -29,15 +29,14 @@ device-roles:
     - "primaryCPE"
     - "secondaryCPE"
 
-# rolurile legaturilor
+# prefix roles
 prefix_roles:
     - LAN
     - pe_cpe
     - core_links
     - management
 
-# legaturile cu clasele de ip-uri aferente
-# aceste legaturi sunt asignate retelei
+# prefixes
 prefixes:
     - prefix: 192.168.0.0/16
       role: LAN
@@ -48,7 +47,7 @@ prefixes:
     - prefix: 100.123.0.0/16
       role: management
 
-# crearea echipamentelor din retea, acestea sunt asignate retelei
+# devices
 devices:
     - name: pe-1.ldn
       device_type: vMX
@@ -67,9 +66,8 @@ devices:
       device_role: singleCPE
       site: Bristol
 
-# adresele ip asignate pe interfete
+# Device interconnections
 core_links:
-  #pe-um01802.r1
     - ip: 172.16.20.0/31
       device: pe-1.ldn
       interface: ge-0/0/0
@@ -81,7 +79,6 @@ core_links:
 
 
 pe_cpe:
-  #cpe-um01820.r1
     - ip: 172.16.20.1/31
       device: cpe-bristol.01
       interface: ge-0/0/0
@@ -91,7 +88,7 @@ pe_cpe:
       interface: ge-0/0/1
       description: Link to customer LAN
 
-# adresa ip de management, adresa IP de management este asignata retelei
+# Management IPs
 management:
     - ip: 100.123.1.0/16
       device: pe-1.ldn

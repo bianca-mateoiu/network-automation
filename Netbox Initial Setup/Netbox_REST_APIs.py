@@ -1,12 +1,7 @@
 #######################################################################
-# Acest script preia variabilele definite in fisierul
-# variables.yml si foloseste apeluri REST API pentru a configura Netbox
-### folosire: python configure_netbox.py
+# Defining the get, create and delete functions via REST calls
 #######################################################################
 
-#########################################################
-# Bloc pentru importarea unor pachete si module folosite
-#########################################################
 import requests
 from requests.auth import HTTPBasicAuth
 import json
@@ -16,7 +11,7 @@ import time
 
 
 ###############################################################################
-# Bloc pentru definirea functiilor folosite pentru crearea variabilei url_base
+#  Creating url_base from variables.yml
 ###############################################################################
 
 def import_variables_from_file():
@@ -39,7 +34,7 @@ headers={
 }
 
 ##########################################################
-# Blocul folosit pentru adaugarea configuratiei in netbox
+# Get & Create functions
 ##########################################################
 
 def create_device_roles():
@@ -382,7 +377,7 @@ def create_circuit_types():
          print 'failed to create circuit type ' + item
 
 #######################################################################
-# Bloc pentru functiile folosite sa se stearga configuratia din netbox
+# Delete functions
 ######################################################################
 
 def delete_ip_addresses():
