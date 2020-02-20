@@ -35,6 +35,7 @@ create_devices()
 
 create_ip_addresses('core_links')
 create_ip_addresses('pe_cpe')
+create_ip_addresses('LAN')
 create_ip_addresses('management')
 
 enable_management_ip_address()
