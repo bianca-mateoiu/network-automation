@@ -68,7 +68,7 @@ devices:
 
 # Device interconnections
 core_links:
-    - ip: 172.16.20.0/31
+    - ip: 10.0.0.0/31
       device: pe-1.ldn
       interface: ge-0/0/1
       description: Link to pe-2.ldn
