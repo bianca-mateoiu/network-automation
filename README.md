@@ -9,9 +9,8 @@ python Netbox\ Initial\ Setup/configure_netbox.py
 
 To generate an Ansible dynamic inventory and dynamic host var files:
 python ansible_scripts/generate_dynamic_inventory+all_host_var_files.py
+<<<<<<< HEAD
 
 To generate the host var file for one device:
 python ansible_scripts/ansible_update_host_var_file.py device_name
-
-
-WORK in PROGRESS
+>>>>>>> 966545947fae7191ea1a51a7e3c7d4cdaa89f882
