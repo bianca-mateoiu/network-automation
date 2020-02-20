@@ -12,12 +12,12 @@ import sys
 import os
 import fnmatch
 import ipaddress
-sys.path.append(os.path.abspath("/home/jcluser/network_automation/Netbox Initial Setup"))
+sys.path.append(os.path.abspath("/home/jcluser/network-automation/Netbox Initial Setup"))
 from Netbox_REST_APIs import *
 
 #################### generare inventory dinamic ####################
 
-ansible_inventory_file = open('/home/jcluser/network_automation/hosts', "w")
+ansible_inventory_file = open('/home/jcluser/network-automation/hosts', "w")
 
 ansible_inventory_file.write("#Ansible dynamic inventory file generated from Netbox API\n")
 ansible_inventory_file.write("\n")
