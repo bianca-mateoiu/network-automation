@@ -70,19 +70,20 @@ devices:
 core_links:
     - ip: 172.16.20.0/31
       device: pe-1.ldn
-      interface: ge-0/0/0
-      description: Link to cpe-bristol.01
-    - ip: 10.20.30.0/31
-      device: cpe-bristol.01
       interface: ge-0/0/1
-      description: Link to pe-1.ldn
-
+      description: Link to pe-2.ldn
 
 pe_cpe:
+    - ip: 172.16.20.0/31
+      device: pe-1.ldn
+      interface: ge-0/0/0
+      description: Link to cpe-bristol.01
     - ip: 172.16.20.1/31
       device: cpe-bristol.01
       interface: ge-0/0/0
       description: Link to pe-1.ldn
+
+LAN:
     - ip: 192.168.0.1/16
       device: cpe-bristol.01
       interface: ge-0/0/1
