@@ -308,7 +308,7 @@ def create_ip_addresses(addresses):
          print 'failed to create ip address ' + item['ip']
 
 def enable_management_ip_address():
-    for item in my_variables_in_yaml['adresare_management']:
+    for item in my_variables_in_yaml['management']:
      if item['mgmt_only']==True:
       device_id=get_device_id(item['device'])
       interface_id=get_interface_id(item['interface'], item['device'])
