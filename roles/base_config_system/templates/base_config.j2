@@ -32,12 +32,12 @@ set system login message "******************************************************
 
 
 
-set snmp community SIC_NS_SSSB-RO authorization read-only
-set snmp community SIC_NS_SSSB-RO client-list-name SIC_NS_SSSB-Standard
-set snmp community SIC_NS_SSSB-RW authorization read-write
-set snmp community SIC_NS_SSSB-RW client-list-name SIC_NS_SSSB-Standard
+set snmp community telecom-RO authorization read-only
+set snmp community telecom-RO client-list-name telecom-Standard
+set snmp community telecom-RW authorization read-write
+set snmp community telecom-RW client-list-name telecom-Standard
 
 
-set policy-options prefix-list SIC_NS_SSSB-Standard 192.168.0.0/16
-set policy-options prefix-list SIC_NS_SSSB-Standard 172.16.0.0/12
-set policy-options prefix-list SIC_NS_SSSB-Standard 10.0.0.0/8
+set policy-options prefix-list telecom-Standard 192.168.0.0/16
+set policy-options prefix-list telecom-Standard 172.16.0.0/12
+set policy-options prefix-list telecom-Standard 10.0.0.0/8
