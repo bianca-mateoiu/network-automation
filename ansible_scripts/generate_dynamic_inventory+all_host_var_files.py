@@ -82,8 +82,8 @@ ansible_inventory_file.close()
 
 #################### generarea fisierelor HOST VAR ####################
 
-if not os.path.exists("/home/jcluser/network_automation/host_vars"):
-    os.mkdir("/home/jcluser/network_automation/host_vars")
+if not os.path.exists("/home/jcluser/network-automation/host_vars"):
+    os.mkdir("/home/jcluser/network-automation/host_vars")
 
 url=url_base + 'api/dcim/manufacturers/'
 rest_call = requests.get(url, headers=headers)
