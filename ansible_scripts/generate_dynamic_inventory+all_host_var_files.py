@@ -149,16 +149,16 @@ for item in rest_call.json()['results']:
                yaml.dump(host_var, file)
 
 
-#################### generarea legaturilor PE-CPE  ####################
+####################  PE-CPE  links ####################
 
 
-for cpe_file in os.listdir('/home/jcluser/network_automation/host_vars/'):
+for cpe_file in os.listdir('/home/jcluser/network-automation/host_vars/'):
     if fnmatch.fnmatch(cpe_file, 'cpe*'):
-        with open('/home/jcluser/network_automation/host_vars/' + cpe_file, 'r+') as f_cpe:
+        with open('/home/jcluser/network-automation/host_vars/' + cpe_file, 'r+') as f_cpe:
             cpe = yaml.load(f_cpe)
             if ("cpe_pe_link" in cpe.keys()):
                 for pe in cpe["cpe_pe_link"]:
-                    with open('/home/jcluser/network_automation/host_vars/' + pe, 'r+') as f_pe:
+                    with open('/home/jcluser/network-automation/host_vars/' + pe, 'r+') as f_pe:
                         p_pe = yaml.load(f_pe)
                         if ("pe_cpe_links" in p_pe.keys()):
                             for p_cpe in p_pe["pe_cpe_links"]:
@@ -167,5 +167,5 @@ for cpe_file in os.listdir('/home/jcluser/network_automation/host_vars/'):
                                     for ip in cpe["cpe_pe_link"][pe]:
                                         networks.append(str(ipaddress.ip_interface(unicode(ip)).network))
                                     p_pe["pe_cpe_links"]={p_cpe + "_" + str(cpe["role"]):networks}
-                                    with open('/home/jcluser/network_automation/host_vars/'+pe, 'w+') as new_pe_file:
+                                    with open('/home/jcluser/network-automation/host_vars/'+pe, 'w+') as new_pe_file:
                                         yaml.dump(p_pe, new_pe_file)
