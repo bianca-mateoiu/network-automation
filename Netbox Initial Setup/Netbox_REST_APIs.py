@@ -15,7 +15,7 @@ import time
 ###############################################################################
 
 def import_variables_from_file():
- my_variables_file=open('/home/jcluser/network_automation/Netbox Initial Setup/variables.yml', 'r')
+ my_variables_file=open('/home/jcluser/network-automation/Netbox Initial Setup/variables.yml', 'r')
  my_variables_in_string=my_variables_file.read()
  my_variables_in_yaml=yaml.load(my_variables_in_string)
  my_variables_file.close()
