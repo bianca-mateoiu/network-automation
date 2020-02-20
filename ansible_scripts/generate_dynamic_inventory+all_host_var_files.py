@@ -145,7 +145,7 @@ for item in rest_call.json()['results']:
            if pe_cpe_links:
                 host_var["pe_cpe_links"]=pe_cpe_links
 
-           with open('/home/jcluser/network_automation/host_vars/'+item['name'], 'w+') as file:
+           with open('/home/jcluser/network-automation/host_vars/'+item['name'], 'w+') as file:
                yaml.dump(host_var, file)
 
 
