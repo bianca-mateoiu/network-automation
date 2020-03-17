@@ -26,7 +26,7 @@ set protocols bgp group {{ cpe_name }} peer-as 64512
 set protocols bgp group {{ cpe_name }} export local-redist
 set protocols bgp group {{ cpe_name }} neighbor {{ wancpeip }} description {{cpe_key}}
 set protocols bgp group {{ cpe_name }} neighbor {{ wancpeip }} peer-as 64512
-set protocols bgp group cpe-um01820.r1 neighbor {{ wancpeip }} local-address {{ wanpeip }}
+set protocols bgp group {{ cpe_name }} neighbor {{ wancpeip }} local-address {{ wanpeip }}
           {% endif %}
 
         {% endif%}
