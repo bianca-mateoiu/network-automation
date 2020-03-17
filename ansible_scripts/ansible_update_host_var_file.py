@@ -12,10 +12,10 @@ import sys
 import os
 import fnmatch
 import ipaddress
-sys.path.append(os.path.abspath("/home/jcluser/network_automation/Netbox Initial Setup"))
+sys.path.append(os.path.abspath("/home/jcluser/network-automation/Netbox Initial Setup"))
 from Netbox_REST_APIs import *
 
-device = sys.argv[1] if len(sys.argv) == 2 else sys.exit("Trebuie sa introduceti un singur host!")
+device = sys.argv[1] if len(sys.argv) == 2 else sys.exit("Please enter one host, this is what the script is for :)")
 
 if not os.path.exists("/home/jcluser/network_automation/host_vars"):
     os.mkdir("/home/jcluser/network_automation/host_vars")
