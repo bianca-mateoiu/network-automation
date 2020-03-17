@@ -183,7 +183,7 @@ def create_interface_templates(model):
         payload={
             "device_type": get_device_type_id(model),
             "name": "fxp0",
-            "form_factor": 1000,
+            "type": "other",
             "mgmt_only": True
         }
         rest_call = requests.post(url, headers=headers, data=json.dumps(payload))
@@ -198,7 +198,7 @@ def create_interface_templates(model):
             payload={
                 "device_type": get_device_type_id(model),
                 "name": "Ge0/" + str(item),
-                "form_factor": 1200,
+                "type": "other",
                 "mgmt_only": False
             }
             rest_call = requests.post(url, headers=headers, data=json.dumps(payload))
@@ -210,7 +210,7 @@ def create_interface_templates(model):
         payload={
             "device_type": get_device_type_id(model),
             "name": "mgmt0",
-            "form_factor": 1000,
+            "type": "other",
             "mgmt_only": True
         }
         rest_call = requests.post(url, headers=headers, data=json.dumps(payload))
