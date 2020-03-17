@@ -31,11 +31,11 @@
   {% if "primaryCPE" in item %}
     set routing-options autonomous-system 64512
     set protocols bgp log-updown
-    set protocols bgp group SIC_NS_SSSB type external
-    set protocols bgp group SIC_NS_SSSB peer-as 1234
-    set protocols bgp group SIC_NS_SSSB local-as 64512
-    set protocols bgp group SIC_NS_SSSB neighbor {{ global_wanpeip.value }} local-address {{ global_wancpeip.value }}
-    set protocols bgp group SIC_NS_SSSB neighbor {{ global_wanpeip.value }} export lan-to-bgp
+    set protocols bgp group to_PE type external
+    set protocols bgp group to_PE peer-as 1234
+    set protocols bgp group to_PE local-as 64512
+    set protocols bgp group to_PE neighbor {{ global_wanpeip.value }} local-address {{ global_wancpeip.value }}
+    set protocols bgp group to_PE neighbor {{ global_wanpeip.value }} export lan-to-bgp
 
     set protocols bgp group internal type internal
     set protocols bgp group internal export internal-to-bgp
@@ -63,13 +63,13 @@
   {% if "secondaryCPE" in item %}
     set routing-options autonomous-system 64512
     set protocols bgp log-updown
-    set protocols bgp group SIC_NS_SSSB type external
-    set protocols bgp group SIC_NS_SSSB peer-as 1234
-    set protocols bgp group SIC_NS_SSSB local-as 64512
-    set protocols bgp group SIC_NS_SSSB neighbor {{ global_wanpeip.value }} local-address {{ global_wancpeip.value }}
-    set protocols bgp group SIC_NS_SSSB neighbor {{ global_wanpeip.value }} import deprefer-in
-    set protocols bgp group SIC_NS_SSSB neighbor {{ global_wanpeip.value }} export deprefer-out
-    set protocols bgp group SIC_NS_SSSB neighbor {{ global_wanpeip.value }} export lan-to-bgp
+    set protocols bgp group to_PE type external
+    set protocols bgp group to_PE peer-as 1234
+    set protocols bgp group to_PE local-as 64512
+    set protocols bgp group to_PE neighbor {{ global_wanpeip.value }} local-address {{ global_wancpeip.value }}
+    set protocols bgp group to_PE neighbor {{ global_wanpeip.value }} import deprefer-in
+    set protocols bgp group to_PE neighbor {{ global_wanpeip.value }} export deprefer-out
+    set protocols bgp group to_PE neighbor {{ global_wanpeip.value }} export lan-to-bgp
 
     set protocols bgp group internal type internal
     set protocols bgp group internal export internal-to-bgp
