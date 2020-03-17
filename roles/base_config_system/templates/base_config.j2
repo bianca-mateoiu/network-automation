@@ -28,9 +28,7 @@ set routing-options static route 0.0.0.0/0 next-hop 100.123.0.1
 
 set system host-name {{ inventory_hostname }}
 set system login user carmen class read-only authentication encrypted-password "{{ carmen_hash }}"
-set system login message "\n\n***************************************************************\n                WARNING:  MONITORED EQUIPMENT! \n             All activity is subject to monitoring. \n          Any UNAUTHORIZED access or use is PROHIBITED \n***************************************************************\n\n"
-
-
+set system login message "*************************************************************** \n                WARNING:  MONITORED EQUIPMENT! \n             All activity is subject to monitoring. \n          Any UNAUTHORIZED access or use is PROHIBITED \n                     and a VIOLATION of the \n               COMPUTER MISUSE ACT 1990 (c.18). \n                This may result in PROSECUTION. \n***************************************************************"
 
 set snmp community telecom-RO authorization read-only
 set snmp community telecom-RO client-list-name telecom-Standard
