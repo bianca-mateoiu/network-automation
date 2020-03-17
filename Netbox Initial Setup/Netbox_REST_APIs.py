@@ -175,6 +175,11 @@ def create_interface_templates(model):
                 "mgmt_only": False
             }
             rest_call = requests.post(url, headers=headers, data=json.dumps(payload))
+            if rest_call.status_code == 201:
+                continue
+            else:
+                print 'failed to create interface template for ' + model'
+
         payload={
             "device_type": get_device_type_id(model),
             "name": "fxp0",
@@ -182,6 +187,11 @@ def create_interface_templates(model):
             "mgmt_only": True
         }
         rest_call = requests.post(url, headers=headers, data=json.dumps(payload))
+
+        if rest_call.status_code == 201:
+            print 'interface template for ' + model + ' successfully created'
+        else:
+            print 'failed to create interface template for ' + model'
 
     if model == "Nexus":
         for item in range (0, 6):
@@ -192,6 +202,11 @@ def create_interface_templates(model):
                 "mgmt_only": False
             }
             rest_call = requests.post(url, headers=headers, data=json.dumps(payload))
+            if rest_call.status_code == 201:
+                continue
+            else:
+                print 'failed to create interface template for ' + model'
+
         payload={
             "device_type": get_device_type_id(model),
             "name": "mgmt0",
@@ -199,6 +214,10 @@ def create_interface_templates(model):
             "mgmt_only": True
         }
         rest_call = requests.post(url, headers=headers, data=json.dumps(payload))
+        if rest_call.status_code == 201:
+            print 'interface template for ' + model + ' successfully created'
+        else:
+            print 'failed to create interface template for ' + model'
 
 def create_power_port_templates(model):
      url=url_base + 'api/dcim/power-port-templates/'
