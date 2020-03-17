@@ -8,13 +8,13 @@
 
 {% for key, value in interfaces.items() %}
   {% if "Link to pe" in value.description %}
-      {% set wanpeip  = value.ipv4.split(".")[0] + "." + value.ipv4.split(".")[2] + "." + value.ipv4.split(".")[3] + "." + (((value.ipv4.split(".")[3] | int ) - 1 ) | string ) %}
+      {% set wanpeip  = value.ipv4.split(".")[0] + "." + value.ipv4.split(".")[1] + "." + value.ipv4.split(".")[2] + "." + (((value.ipv4.split(".")[3] | int ) - 1 ) | string ) %}
       {% set wancpeip = value.ipv4 %}
       {% set global_wanpeip.value=wanpeip %}
       {% set global_wancpeip.value=wancpeip %}
   {% endif%}
   {% if "LAN" in value.description %}
-      {% set lanibgppeer  = value.ipv4.split(".")[0] + "." + value.ipv4.split(".")[2] + "." + value.ipv4.split(".")[3] + "." + (((value.ipv4.split(".")[3] | int ) + 1 ) | string ) %}
+      {% set lanibgppeer  = value.ipv4.split(".")[0] + "." + value.ipv4.split(".")[1] + "." + value.ipv4.split(".")[2] + "." + (((value.ipv4.split(".")[3] | int ) + 1 ) | string ) %}
       {% set lanibgplocaladdress = value.ipv4 %}
       {% set global_lanibgppeer.value=lanibgppeer %}
       {% set global_lanibgplocaladdress.value=lanibgplocaladdress %}

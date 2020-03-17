@@ -2,7 +2,7 @@
 
 {% for key, value in interfaces.items() %}
   {% if "Link to cpe" in value.description %}
-      {% set wancpeip  = value.ipv4.split(".")[0] + "." + value.ipv4.split(".")[2] + "." + value.ipv4.split(".")[3] + "." + (((value.ipv4.split(".")[3] | int ) + 1 ) | string ) %}
+      {% set wancpeip  = value.ipv4.split(".")[0] + "." + value.ipv4.split(".")[1] + "." + value.ipv4.split(".")[2] + "." + (((value.ipv4.split(".")[3] | int ) + 1 ) | string ) %}
       {% set wanpeip = value.ipv4 %}
       {% set cpe_name = value.description.split("to")[1].strip() | string %}
 
