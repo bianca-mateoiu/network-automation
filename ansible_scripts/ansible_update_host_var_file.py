@@ -17,8 +17,8 @@ from Netbox_REST_APIs import *
 
 device = sys.argv[1] if len(sys.argv) == 2 else sys.exit("Please enter one host, this is what the script is for :)")
 
-if not os.path.exists("/home/jcluser/network_automation/host_vars"):
-    os.mkdir("/home/jcluser/network_automation/host_vars")
+if not os.path.exists("/home/jcluser/network-automation/host_vars"):
+    os.mkdir("/home/jcluser/network-automation/host_vars")
 
 device_id=get_device_id(device)
 url=url_base + 'api/dcim/devices/' + str(device_id)
@@ -71,24 +71,24 @@ if core_links:
 if pe_cpe_links:
      host_var["pe_cpe_links"]=pe_cpe_links
 
-with open('/home/jcluser/network_automation/host_vars/'+item['name'], 'w+') as file:
+with open('/home/jcluser/network-automation/host_vars/'+item['name'], 'w+') as file:
                yaml.dump(host_var, file)
 
 
 #################### generarea legaturilor PE-CPE  ####################
 
 
-for cpe_file in os.listdir('/home/jcluser/network_automation/host_vars/'):
+for cpe_file in os.listdir('/home/jcluser/network-automation/host_vars/'):
     if fnmatch.fnmatch(cpe_file, 'cpe*'):
-        with open('/home/jcluser/network_automation/host_vars/' + cpe_file, 'r+') as f_cpe:
+        with open('/home/jcluser/network-automation/host_vars/' + cpe_file, 'r+') as f_cpe:
             cpe = yaml.load(f_cpe)
             if ("cpe_pe_link" in cpe.keys()):
                 for pe in cpe["cpe_pe_link"]:
-                    with open('/home/jcluser/network_automation/host_vars/' + pe, 'r+') as f_pe:
+                    with open('/home/jcluser/network-automation/host_vars/' + pe, 'r+') as f_pe:
                         p_pe = yaml.load(f_pe)
                         if ("pe_cpe_links" in p_pe.keys()):
                             for p_cpe in p_pe["pe_cpe_links"]:
                                 if (p_cpe==cpe_file):
                                     p_pe["pe_cpe_links"]={p_cpe:cpe["cpe_pe_link"][pe]}
-                                    with open('/home/jcluser/network_automation/host_vars/'+pe, 'w+') as new_pe_file:
+                                    with open('/home/jcluser/network-automation/host_vars/'+pe, 'w+') as new_pe_file:
                                         yaml.dump(p_pe, new_pe_file)
