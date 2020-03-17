@@ -48,7 +48,7 @@ for int in rest_call_int.json()['results']:
 
        # daca host-ul este CPE si are PE in descriere
     if ( "pe-" in int['description'] and "CPE" in str(item['device_role']['name'])):
-         cpe_pe_link_name=str(int['description']).split("catre")[1].strip()
+         cpe_pe_link_name=str(int['description']).split("to")[1].strip()
 
      # daca host-ul este CPE si are LAN in descriere
     if ( "LAN" in int['description'] and "CPE" in str(item['device_role']['name'])):
@@ -56,11 +56,11 @@ for int in rest_call_int.json()['results']:
 
        # daca host-ul este PE si are PE in descriere
     if ( " pe-" in int['description'] and str(item['device_role']['name']).startswith("PE") ):
-         core_links.append(str(int['description']).split("catre")[1].strip())
+         core_links.append(str(int['description']).split("to")[1].strip())
 
        # daca host-ul este PE si are CPE in descriere
     if ( "cpe" in int['description'] and str(item['device_role']['name']).startswith("PE") ):
-         pe_cpe_links.append(str(int['description']).split("catre")[1].strip())
+         pe_cpe_links.append(str(int['description']).split("to")[1].strip())
 
 host_var['interfaces']=interface
 
