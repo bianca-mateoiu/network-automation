@@ -171,7 +171,7 @@ def create_interface_templates(model):
             payload={
                 "device_type": get_device_type_id(model),
                 "name": "ge-0/0/" + str(item),
-                "type": "Other",
+                "type": "other",
                 "mgmt_only": False
             }
             rest_call = requests.post(url, headers=headers, data=json.dumps(payload))
